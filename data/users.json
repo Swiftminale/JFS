@@ -1,0 +1,26 @@
+[
+  {
+    "id": "usr-1",
+    "name": "Super Admin",
+    "email": "admin@jfs-tradinget.com",
+    "role": "Super Admin",
+    "status": "Active",
+    "createdAt": "2026-10-01"
+  },
+  {
+    "id": "usr-2",
+    "name": "Operations Manager",
+    "email": "ops@jfs-tradinget.com",
+    "role": "Admin",
+    "status": "Active",
+    "createdAt": "2026-10-05"
+  },
+  {
+    "id": "usr-3",
+    "name": "Content Editor",
+    "email": "editor@jfs-tradinget.com",
+    "role": "Editor",
+    "status": "Active",
+    "createdAt": "2026-10-10"
+  }
+]

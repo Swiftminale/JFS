@@ -1,0 +1,177 @@
+{
+  "site": {
+    "name": "JFS TRADING",
+    "tagline": "JOIN THE GREEN REVOLUTION",
+    "location": "Addis Ababa, Ethiopia",
+    "phone": "+251 91 140 0328",
+    "email": "contact@jfs-tradinget.com",
+    "address": "Figa, Mesi Building, Addis Ababa",
+    "hours": "Monday to Friday, 9:00 AM to 5:00 PM"
+  },
+  "scrollSections": {
+    "section1": {
+      "id": "section-1",
+      "badge": "01",
+      "tag": "AFRICAN PROVERB",
+      "quote": "“KNOWLEDGE IS LIKE A GARDEN; IF IT IS NOT CULTIVATED, IT CANNOT BE HARVESTED.”",
+      "subtext": "Feed that works for Ethiopia’s small farmers.",
+      "buttonText": "EXPLORE NOW",
+      "buttonLink": "#about",
+      "imageUrl": "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=2000&q=80"
+    },
+    "section2": {
+      "id": "section-2",
+      "badge": "02",
+      "tag": "ABOUT US",
+      "quote": "“JFS TRADING IS COMMITTED TO EMPOWERING ETHIOPIA’S SMALL-SCALE POULTRY FARMERS WITH HIGH-QUALITY, CUSTOMIZED FEED.”",
+      "subtext": "Based in Addis Ababa, we import and deliver Primix, our flagship product, and partner with trusted facilities to create blends for each farm. Our mission is to make premium, affordable feed accessible, with strict quality assurance and service built around the customer.",
+      "buttonText": "OUR SERVICES",
+      "buttonLink": "#services",
+      "imageUrl": "https://images.unsplash.com/photo-1548550023-2bdb3c5beed7?auto=format&fit=crop&w=2000&q=80"
+    },
+    "section3": {
+      "id": "section-3",
+      "badge": "03",
+      "tag": "OUR SERVICES",
+      "quote": "“NOT TO KNOW IS BAD; NOT TO DESIRE TO KNOW IS WORSE.”",
+      "subtext": "Custom poultry feed importation, personalized feed blending, nutritional consultation, and coffee export.",
+      "buttonText": "GET IN TOUCH",
+      "buttonLink": "#contact",
+      "imageUrl": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=2000&q=80"
+    },
+    "section4": {
+      "id": "section-4",
+      "badge": "04",
+      "tag": "CONTACT US",
+      "quote": "“EDUCATION IS NOT THE LEARNING OF FACTS, BUT THE TRAINING OF THE MIND TO THINK.”",
+      "subtext": "Questions about Primix, or need help choosing the right blend? We’re ready to help.",
+      "buttonText": "SEND MESSAGE",
+      "buttonLink": "#contact-form",
+      "imageUrl": "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=2000&q=80"
+    }
+  },
+  "dualCards": {
+    "import": {
+      "tag": "IMPORT",
+      "title": "Primix poultry feed",
+      "description": "Imported for optimal farm growth, blended to your flock.",
+      "linkText": "Explore poultry feed",
+      "linkUrl": "#services"
+    },
+    "export": {
+      "tag": "EXPORT",
+      "title": "Ethiopian coffee",
+      "description": "Premium coffee, sustainably sourced and exported.",
+      "linkText": "Explore coffee exports",
+      "linkUrl": "/coffee"
+    }
+  },
+  "about": {
+    "title": "About us",
+    "paragraphs": [
+      "JFS Trading is committed to empowering Ethiopia’s small-scale poultry farmers with high-quality, customized feed. Based in Addis Ababa, we import and deliver Primix, our flagship product, and partner with trusted facilities to create blends for each farm.",
+      "Our mission is to make premium, affordable feed accessible, with strict quality assurance and service built around the customer."
+    ],
+    "imageUrl": "https://images.unsplash.com/photo-1589923188900-85dae523342b?auto=format&fit=crop&w=1200&q=80",
+    "badgeText": "[PHOTO: team or feed blending facility]"
+  },
+  "whyChoose": {
+    "title": "Why choose us",
+    "pillars": [
+      {
+        "id": "1",
+        "title": "Customized solutions",
+        "description": "No two farms are alike. Primix is blended to your farm’s nutritional requirements."
+      },
+      {
+        "id": "2",
+        "title": "Quality you can trust",
+        "description": "Reputable facilities and strict quality control on every batch of Primix."
+      },
+      {
+        "id": "3",
+        "title": "Committed to small farmers",
+        "description": "Affordable, accessible feed that helps your farm and your community grow."
+      }
+    ]
+  },
+  "services": [
+    {
+      "id": "srv-1",
+      "title": "Custom poultry feed importation",
+      "description": "High-quality feed tailored to the needs of small-scale farms."
+    },
+    {
+      "id": "srv-2",
+      "title": "Personalized feed blending",
+      "description": "Custom formulas made with trusted mixing partners."
+    },
+    {
+      "id": "srv-3",
+      "title": "Nutritional consultation",
+      "description": "Expert guidance to choose the right feed for your poultry’s health."
+    },
+    {
+      "id": "srv-4",
+      "title": "Quality assurance checks",
+      "description": "Every batch of Primix held to strict standards of purity and nutrition."
+    },
+    {
+      "id": "srv-5",
+      "title": "Timely delivery",
+      "description": "Efficient, reliable delivery so supplies reach you promptly."
+    },
+    {
+      "id": "srv-6",
+      "title": "Customer support",
+      "description": "Answers and help to optimize your poultry farming practices."
+    }
+  ],
+  "coffeePage": {
+    "hero": {
+      "eyebrow": "EXPORT SERVICES",
+      "headline": "Flavors that tell a story.",
+      "lead": "Premium Ethiopian coffee, sourced directly from local farmers and exported to international markets.",
+      "ctaText": "Contact us",
+      "ctaLink": "#contact",
+      "imageUrl": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
+      "badgeText": "[PHOTO: Ethiopian coffee beans or harvest]"
+    },
+    "heritage": {
+      "title": "Exporting Ethiopia’s coffee heritage",
+      "text": "At JFS Trading, we specialize in exporting premium Ethiopian coffee, sourced directly from local farmers. Our coffee is carefully selected to showcase Ethiopia’s rich coffee heritage. We keep the export process seamless, delivering high-quality coffee to international markets while supporting local farmers and sustainable practices."
+    },
+    "pillars": [
+      {
+        "id": "c-1",
+        "title": "Traceable",
+        "description": "Sourced directly from local farmers, so you know where your coffee comes from."
+      },
+      {
+        "id": "c-2",
+        "title": "Sustainable",
+        "description": "Practices that support the farmers and the land behind every harvest."
+      },
+      {
+        "id": "c-3",
+        "title": "Carefully selected",
+        "description": "Premium coffee chosen to show off Ethiopia’s rich heritage."
+      }
+    ],
+    "callout": {
+      "title": "Interested in our coffee?",
+      "subtitle": "Reach out and we’ll talk through your export needs."
+    }
+  },
+  "customSections": [
+    {
+      "id": "sec-welcome-announcement",
+      "enabled": true,
+      "type": "banner",
+      "title": "Special Seasonal Blends Available",
+      "content": "Contact our team to inquire about high-yield pre-mix poultry rations for the upcoming harvest cycle.",
+      "buttonText": "Inquire today",
+      "buttonLink": "#contact"
+    }
+  ]
+}
