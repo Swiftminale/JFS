@@ -115,7 +115,7 @@ function AdminLayoutContent({ children }: { children: React.ReactNode }) {
       <Divider sx={{ my: 2 }} />
       <Box sx={{ px: 2 }}>
         <Typography variant="caption" sx={{ display: 'block', color: 'text.secondary', mb: 0.5 }}>
-          Auth: {isConfigured ? '🟢 Supabase Cloud' : '🟡 Local Mode'}
+          Auth: 🟢 Supabase Cloud
         </Typography>
         <Typography variant="caption" color="text.secondary">
           Live CMS synchronization active.

@@ -17,14 +17,23 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import CloudDoneIcon from '@mui/icons-material/CloudDone';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { supabase, isSupabaseConfigured } from '@/lib/supabaseClient';
+import { isSupabaseConfigured } from '@/lib/supabaseClient';
+import { useAuth } from '@/lib/AuthContext';
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const { user, signIn, loading: authLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // If user is already authenticated in Supabase, redirect directly to /admin
+  React.useEffect(() => {
+    if (user) {
+      window.location.href = '/admin';
+    }
+  }, [user]);
 
   // Supabase Configuration Form State
   const [showConfig, setShowConfig] = useState(false);
@@ -39,40 +48,21 @@ export default function AdminLoginPage() {
     setError('');
 
     try {
-      if (isSupabaseConfigured && supabase) {
-        // Authenticate via Supabase Auth
-        const { error: signInError } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password,
-        });
-
-        if (signInError) throw signInError;
-
-        // Set dual session cookie for SSR/middleware compatibility
-        document.cookie = `jfs_admin_auth=authenticated; path=/; max-age=86400; SameSite=Lax`;
-        router.push('/admin');
-      } else {
-        // Fallback local authentication
-        const res = await fetch('/api/auth', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: email.trim(), password }),
-        });
-
-        const data = await res.json();
-        if (data.success) {
-          document.cookie = 'jfs_admin_auth=authenticated; path=/; max-age=86400; SameSite=Lax';
-          router.push('/admin');
-        } else {
-          setError(
-            'Unable to login: Supabase is not connected yet because .env.local has placeholder credentials. You can connect your Supabase project using the "Configure Supabase" button below, or use master passkey "admin123" to enter.'
-          );
-        }
-      }
+      await signIn(email, password);
+      // Clean full-page navigation to /admin to ensure SSR and middleware synchronization
+      window.location.href = '/admin';
     } catch (err: any) {
-      console.error('Login error:', err);
-      setError(err.message || 'Authentication failed. Please check your credentials.');
-    } finally {
+      console.error('Supabase login error:', err);
+      const msg = err?.message || '';
+      if (msg.includes('Email not confirmed') || err?.code === 'email_not_confirmed') {
+        setError(
+          'Supabase Email Not Confirmed: Please verify your email via the confirmation link or confirm this user in your Supabase Dashboard (Authentication -> Users -> Confirm User).'
+        );
+      } else if (msg.includes('Invalid login credentials') || err?.code === 'invalid_credentials') {
+        setError('Invalid Supabase admin email or password. Please verify your credentials.');
+      } else {
+        setError(msg || 'Supabase authentication failed. Please check your credentials.');
+      }
       setLoading(false);
     }
   };

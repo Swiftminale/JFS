@@ -11,7 +11,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
   useEffect(() => {
-    // If auth check finished and no authenticated user exists, force redirect
+    // If auth check finished and no authenticated Supabase user exists:
     if (!loading && !user && pathname !== '/admin/login') {
       router.replace('/admin/login');
     }
@@ -38,7 +38,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     );
   }
 
-  // If no user, block rendering completely to prevent flash of admin content
+  // If no user, block rendering completely to prevent content flash
   if (!user && pathname !== '/admin/login') {
     return null;
   }

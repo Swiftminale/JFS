@@ -93,7 +93,7 @@ export default function CoffeeExperience({ data }: CoffeeExperienceProps) {
   };
 
   // Inquiry Form State
-  const [inquiryData, setInquiryData] = useState({ name: '', email: '', variety: 'Yirgacheffe G1', volume: '1 Full Container Load (FCL)', message: '' });
+  const [inquiryData, setInquiryData] = useState({ name: '', email: '', message: '' });
   const [inquirySent, setInquirySent] = useState(false);
 
   const handleSendInquiry = (e: React.FormEvent) => {
@@ -102,7 +102,7 @@ export default function CoffeeExperience({ data }: CoffeeExperienceProps) {
     setInquirySent(true);
     setTimeout(() => {
       setInquirySent(false);
-      setInquiryData({ name: '', email: '', variety: 'Yirgacheffe G1', volume: '1 Full Container Load (FCL)', message: '' });
+      setInquiryData({ name: '', email: '', message: '' });
     }, 4000);
   };
 
@@ -1164,43 +1164,6 @@ export default function CoffeeExperience({ data }: CoffeeExperienceProps) {
                       placeholder="buyer@roastery.com"
                       className="glass-input"
                     />
-                  </div>
-
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 180px), 1fr))', gap: '1rem', marginBottom: '1.25rem' }}>
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, marginBottom: '0.35rem', color: '#d8cec8' }}>
-                        Origin Preference
-                      </label>
-                      <select
-                        value={inquiryData.variety}
-                        onChange={(e) => setInquiryData({ ...inquiryData, variety: e.target.value })}
-                        className="glass-input"
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <option value="Yirgacheffe G1" style={{ background: '#241713', color: '#fff' }}>Yirgacheffe G1 Washed</option>
-                        <option value="Sidama G1" style={{ background: '#241713', color: '#fff' }}>Sidama G1 Natural</option>
-                        <option value="Guji Special" style={{ background: '#241713', color: '#fff' }}>Guji Microlot</option>
-                        <option value="Harrar Longberry" style={{ background: '#241713', color: '#fff' }}>Harrar Longberry</option>
-                        <option value="All Varieties" style={{ background: '#241713', color: '#fff' }}>Assorted Sample Box</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 700, marginBottom: '0.35rem', color: '#d8cec8' }}>
-                        Estimated Volume
-                      </label>
-                      <select
-                        value={inquiryData.volume}
-                        onChange={(e) => setInquiryData({ ...inquiryData, volume: e.target.value })}
-                        className="glass-input"
-                        style={{ cursor: 'pointer' }}
-                      >
-                        <option value="Sample Cupping Box" style={{ background: '#241713', color: '#fff' }}>Sample Cupping Box</option>
-                        <option value="1-5 Bags (60kg each)" style={{ background: '#241713', color: '#fff' }}>1 - 5 Bags (60kg)</option>
-                        <option value="1 Full Container (FCL)" style={{ background: '#241713', color: '#fff' }}>1 Full Container (FCL)</option>
-                        <option value="Multiple Containers" style={{ background: '#241713', color: '#fff' }}>Multiple Containers</option>
-                      </select>
-                    </div>
                   </div>
 
                   <div style={{ marginBottom: '1.5rem' }}>
