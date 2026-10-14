@@ -112,18 +112,21 @@ export default function ScrollStoryNav({ children, backgroundImages }: ScrollSto
       </div>
 
       {/* Persistent Left Indicator Rail */}
-      <div style={{
-        position: 'fixed',
-        left: '2.5rem',
-        top: '50%',
-        transform: 'translateY(-50%)',
-        zIndex: 40,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '1.25rem',
-        pointerEvents: 'auto',
-      }}>
+      <div
+        className="desktop-story-rail"
+        style={{
+          position: 'fixed',
+          left: '2.5rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          zIndex: 40,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1.25rem',
+          pointerEvents: 'auto',
+        }}
+      >
         {navItems.map((item) => {
           const isActive = activeSection === item.badge;
           return (
@@ -182,22 +185,25 @@ export default function ScrollStoryNav({ children, backgroundImages }: ScrollSto
       </div>
 
       {/* Floating Bottom Left "SCROLL ↓" */}
-      <div style={{
-        position: 'fixed',
-        bottom: '2.5rem',
-        left: '2.8rem',
-        zIndex: 40,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: '0.4rem',
-        color: 'rgba(255, 255, 255, 0.5)',
-        fontSize: '0.625rem',
-        letterSpacing: '0.2em',
-        fontWeight: 700,
-        textTransform: 'uppercase',
-        pointerEvents: 'none',
-      }}>
+      <div
+        className="desktop-scroll-hint"
+        style={{
+          position: 'fixed',
+          bottom: '2.5rem',
+          left: '2.8rem',
+          zIndex: 40,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '0.4rem',
+          color: 'rgba(255, 255, 255, 0.5)',
+          fontSize: '0.625rem',
+          letterSpacing: '0.2em',
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          pointerEvents: 'none',
+        }}
+      >
         <span>SCROLL</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -205,31 +211,73 @@ export default function ScrollStoryNav({ children, backgroundImages }: ScrollSto
         </svg>
       </div>
 
-      {/* Persistent Right Geometric Wheat Watermark Graphic */}
-      <div style={{
-        position: 'fixed',
-        bottom: 0,
-        right: '3vw',
-        zIndex: 15,
-        pointerEvents: 'none',
-        opacity: 0.85,
-        filter: 'drop-shadow(0 0 20px rgba(163, 230, 53, 0.25))',
-      }}>
+      {/* Persistent Right Geometric Chicken Watermark Graphic */}
+      <div
+        className="chicken-watermark"
+        style={{
+          position: 'fixed',
+          bottom: '2vh',
+          right: '3vw',
+          zIndex: 15,
+          pointerEvents: 'none',
+          opacity: 0.85,
+          filter: 'drop-shadow(0 0 20px rgba(163, 230, 53, 0.25))',
+          transition: 'all 0.3s ease',
+        }}
+      >
         <svg
-          width="210"
-          height="420"
-          viewBox="0 0 160 320"
+          width="100%"
+          height="100%"
+          viewBox="0 0 240 320"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          style={{ maxWidth: '100%', height: 'auto', display: 'block' }}
         >
-          <path d="M80 320V20" stroke="#a3e635" strokeWidth="3" strokeLinecap="round" />
-          <polygon points="80,10 92,26 80,42 68,26" stroke="#a3e635" strokeWidth="3" fill="none" />
-          <path d="M48 64L80 96L112 64" stroke="#a3e635" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-          <line x1="80" y1="42" x2="80" y2="96" stroke="#a3e635" strokeWidth="3" />
-          <path d="M40 108L80 148L120 108" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M34 156L80 202L126 156" stroke="#a3e635" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M30 208L80 258L130 208" stroke="#a3e635" strokeWidth="3.6" strokeLinecap="round" strokeLinejoin="round" />
-          <path d="M30 264L80 314L130 264" stroke="#a3e635" strokeWidth="3.8" strokeLinecap="round" strokeLinejoin="round" />
+          <g transform="translate(240, 0) scale(-1, 1)">
+            {/* Comb (Proud crest) */}
+            <path d="M135 44 L142 16 L154 28 L168 10 L180 26 L194 16 L190 46" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+            
+            {/* Head & Beak */}
+            <path d="M135 44 C148 42 168 42 182 46 C190 48 196 54 198 62 L220 68 L196 76 C194 84 186 92 178 96" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" />
+            
+            {/* Eye */}
+            <circle cx="172" cy="60" r="3.5" fill="#a3e635" />
+            
+            {/* Wattle */}
+            <path d="M188 78 C196 88 194 104 182 110 C172 114 168 102 172 90" stroke="#a3e635" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+            
+            {/* Breast & Underbelly */}
+            <path d="M178 96 C198 126 202 168 176 206 C155 232 120 236 94 220" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" />
+            
+            {/* Neck & Back */}
+            <path d="M135 44 C122 70 112 108 106 142 C98 152 92 158 92 165" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" />
+            
+            {/* Wing Contour */}
+            <path d="M128 128 C158 130 178 148 168 185 C158 212 130 218 108 206 C104 180 112 145 128 128 Z" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+            
+            {/* Internal Feather Chevrons */}
+            <path d="M136 146 L152 164 L134 180" stroke="#a3e635" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M124 158 L142 176 L124 194" stroke="#a3e635" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            
+            {/* Sweeping Tail Feathers */}
+            <path d="M92 165 C75 110 50 62 26 42 C16 32 20 22 34 30 C58 44 80 85 92 145" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" />
+            <path d="M82 172 C60 128 35 88 18 70 C8 62 14 52 26 60 C48 76 70 115 80 165" stroke="#a3e635" strokeWidth="2.8" strokeLinecap="round" />
+            <path d="M74 185 C52 148 28 118 14 102 C6 95 10 86 22 94 C42 108 62 142 70 182" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M68 200 C50 176 30 152 18 138 C12 132 16 124 26 130 C42 142 58 172 65 200" stroke="#a3e635" strokeWidth="2.2" strokeLinecap="round" />
+            
+            {/* Legs & Feet */}
+            {/* Back Leg */}
+            <path d="M112 216 L108 268" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" />
+            <path d="M108 268 L92 280" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M108 268 L108 285" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M108 268 L124 280" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            {/* Front Leg */}
+            <path d="M138 214 L142 272" stroke="#a3e635" strokeWidth="3.2" strokeLinecap="round" />
+            <path d="M142 272 L124 286" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M142 272 L142 292" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M142 272 L160 286" stroke="#a3e635" strokeWidth="2.6" strokeLinecap="round" />
+            <path d="M142 260 L152 254" stroke="#a3e635" strokeWidth="2.2" strokeLinecap="round" />
+          </g>
         </svg>
       </div>
 
@@ -237,6 +285,46 @@ export default function ScrollStoryNav({ children, backgroundImages }: ScrollSto
       <div style={{ position: 'relative', zIndex: 10, width: '100%' }}>
         {children}
       </div>
+
+      <style jsx>{`
+        .chicken-watermark {
+          width: 210px;
+          height: 280px;
+        }
+
+        @media (max-width: 900px) {
+          .desktop-story-rail {
+            left: 0.75rem !important;
+            transform: translateY(-50%) scale(0.85) !important;
+          }
+          .desktop-scroll-hint {
+            left: 1rem !important;
+            bottom: 1.5rem !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .desktop-story-rail,
+          .desktop-scroll-hint {
+            display: none !important;
+          }
+          .chicken-watermark {
+            width: 105px !important;
+            height: 140px !important;
+            opacity: 0.45 !important;
+            right: 2vw !important;
+            bottom: 1.5vh !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .chicken-watermark {
+            width: 80px !important;
+            height: 108px !important;
+            opacity: 0.35 !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }

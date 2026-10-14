@@ -12,7 +12,11 @@ import {
   Alert,
   Divider,
   CircularProgress,
+  Collapse,
 } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import CloudDoneIcon from '@mui/icons-material/CloudDone';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { supabase, isSupabaseConfigured } from '@/lib/supabaseClient';
 
 export default function AdminLoginPage() {
@@ -21,6 +25,13 @@ export default function AdminLoginPage() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Supabase Configuration Form State
+  const [showConfig, setShowConfig] = useState(false);
+  const [supabaseUrlInput, setSupabaseUrlInput] = useState('');
+  const [supabaseKeyInput, setSupabaseKeyInput] = useState('');
+  const [configSaving, setConfigSaving] = useState(false);
+  const [configMessage, setConfigMessage] = useState<{ text: string; severity: 'success' | 'error' } | null>(null);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,35 +42,69 @@ export default function AdminLoginPage() {
       if (isSupabaseConfigured && supabase) {
         // Authenticate via Supabase Auth
         const { error: signInError } = await supabase.auth.signInWithPassword({
-          email,
+          email: email.trim(),
           password,
         });
 
         if (signInError) throw signInError;
 
-        // Set session cookie for SSR/middleware compatibility
-        document.cookie = `jfs_admin_auth=authenticated; path=/; max-age=86400`;
+        // Set dual session cookie for SSR/middleware compatibility
+        document.cookie = `jfs_admin_auth=authenticated; path=/; max-age=86400; SameSite=Lax`;
         router.push('/admin');
       } else {
         // Fallback local authentication
         const res = await fetch('/api/auth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({ email: email.trim(), password }),
         });
 
         const data = await res.json();
         if (data.success) {
-          document.cookie = 'jfs_admin_auth=authenticated; path=/; max-age=86400';
+          document.cookie = 'jfs_admin_auth=authenticated; path=/; max-age=86400; SameSite=Lax';
           router.push('/admin');
         } else {
-          setError(data.message || 'Invalid admin credentials');
+          setError(
+            'Unable to login: Supabase is not connected yet because .env.local has placeholder credentials. You can connect your Supabase project using the "Configure Supabase" button below, or use master passkey "admin123" to enter.'
+          );
         }
       }
     } catch (err: any) {
+      console.error('Login error:', err);
       setError(err.message || 'Authentication failed. Please check your credentials.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleSaveSupabaseConfig = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setConfigSaving(true);
+    setConfigMessage(null);
+
+    try {
+      const res = await fetch('/api/admin/setup-supabase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          supabaseUrl: supabaseUrlInput,
+          supabaseAnonKey: supabaseKeyInput,
+        }),
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        setConfigMessage({ text: 'Supabase credentials saved to .env.local! Reloading page...', severity: 'success' });
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      } else {
+        setConfigMessage({ text: data.error || 'Failed to save configuration', severity: 'error' });
+      }
+    } catch (err: any) {
+      setConfigMessage({ text: err.message || 'Error communicating with server', severity: 'error' });
+    } finally {
+      setConfigSaving(false);
     }
   };
 
@@ -72,42 +117,123 @@ export default function AdminLoginPage() {
       bgcolor: '#14231f',
       p: 2,
     }}>
-      <Card sx={{ maxWidth: 420, width: '100%', borderRadius: 2, boxShadow: '0 16px 40px rgba(0,0,0,0.5)' }}>
+      <Card sx={{ maxWidth: 460, width: '100%', borderRadius: 2, boxShadow: '0 16px 40px rgba(0,0,0,0.5)' }}>
         <CardContent sx={{ p: 4 }}>
           {/* Logo Brand Header */}
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
             <Box sx={{
-              bgcolor: '#ffffff',
-              px: 2,
-              py: 1,
-              borderRadius: 2,
               display: 'flex',
               alignItems: 'center',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
               mb: 2
             }}>
-              <img src="/logo.png" alt="JFS Trading Logo" style={{ height: 42, width: 'auto' }} />
+              <img src="/logo.png" alt="JFS Trading Logo" style={{ height: 46, width: 'auto' }} />
             </Box>
             <Typography variant="h5" sx={{ fontWeight: 700, color: '#141716' }}>
               Admin CRM Login
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mt: 0.5 }}>
-              Sign in with your Supabase Admin account
+              Sign in to manage JFS Trading products, content & coffee exports
             </Typography>
           </Box>
 
+          {/* Connection Status Indicator */}
           {isSupabaseConfigured ? (
-            <Alert severity="success" sx={{ mb: 2.5, fontSize: '0.8rem' }}>
-              <strong>Supabase Connected:</strong> Access restricted to invited administrators.
+            <Alert
+              icon={<CloudDoneIcon fontSize="inherit" />}
+              severity="success"
+              sx={{ mb: 2.5, fontSize: '0.8rem', alignItems: 'center' }}
+            >
+              <strong>Supabase Connected:</strong> Ready for invited admin accounts.
             </Alert>
           ) : (
-            <Alert severity="info" sx={{ mb: 2.5, fontSize: '0.8rem' }}>
-              <strong>Local Mode:</strong> Default password <code>admin123</code>.
+            <Alert
+              icon={<WarningAmberIcon fontSize="inherit" />}
+              severity="warning"
+              action={
+                <Button
+                  color="inherit"
+                  size="small"
+                  onClick={() => setShowConfig(!showConfig)}
+                  startIcon={<SettingsIcon sx={{ fontSize: 16 }} />}
+                  sx={{ textTransform: 'none', fontWeight: 700, fontSize: '0.75rem' }}
+                >
+                  Configure
+                </Button>
+              }
+              sx={{ mb: 2.5, fontSize: '0.8rem' }}
+            >
+              <div>
+                <strong>Supabase Not Connected:</strong> Placeholders detected in <code>.env.local</code>.
+              </div>
             </Alert>
           )}
 
+          {/* Collapsible Supabase Setup Box */}
+          <Collapse in={showConfig}>
+            <Box sx={{
+              p: 2.5,
+              mb: 3,
+              bgcolor: '#f8faf9',
+              borderRadius: 2,
+              border: '1px solid #c9d5cf'
+            }}>
+              <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1a2b26', mb: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                <SettingsIcon sx={{ fontSize: 18, color: '#c94a38' }} />
+                Connect Supabase Project
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                Paste your Project URL & Anon/Public Key from your Supabase dashboard (Settings &rarr; API).
+              </Typography>
+
+              {configMessage && (
+                <Alert severity={configMessage.severity} sx={{ mb: 2, fontSize: '0.8rem' }}>
+                  {configMessage.text}
+                </Alert>
+              )}
+
+              <form onSubmit={handleSaveSupabaseConfig}>
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Supabase Project URL"
+                  placeholder="https://xyzcompany.supabase.co"
+                  value={supabaseUrlInput}
+                  onChange={(e) => setSupabaseUrlInput(e.target.value)}
+                  required
+                  sx={{ mb: 1.5 }}
+                />
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Supabase Anon Key"
+                  placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                  value={supabaseKeyInput}
+                  onChange={(e) => setSupabaseKeyInput(e.target.value)}
+                  required
+                  sx={{ mb: 2 }}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  size="small"
+                  fullWidth
+                  disabled={configSaving}
+                  sx={{
+                    bgcolor: '#1a2b26',
+                    '&:hover': { bgcolor: '#0f1a17' },
+                    py: 1,
+                    fontWeight: 600,
+                    textTransform: 'none'
+                  }}
+                >
+                  {configSaving ? <CircularProgress size={20} sx={{ color: '#fff' }} /> : 'Save & Connect Supabase'}
+                </Button>
+              </form>
+            </Box>
+          </Collapse>
+
           {error && (
-            <Alert severity="error" sx={{ mb: 2 }}>
+            <Alert severity="error" sx={{ mb: 2.5, fontSize: '0.85rem' }}>
               {error}
             </Alert>
           )}
@@ -151,25 +277,37 @@ export default function AdminLoginPage() {
               {loading ? (
                 <CircularProgress size={24} sx={{ color: '#fff' }} />
               ) : (
-                'Sign In to Admin CRM'
+                isSupabaseConfigured ? 'Sign In with Supabase' : 'Sign In'
               )}
             </Button>
           </form>
 
           <Divider sx={{ my: 3 }} />
 
-          <Box sx={{ textAlign: 'center' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Button
               variant="text"
               size="small"
               onClick={() => router.push('/')}
               sx={{ textTransform: 'none', color: '#555c58' }}
             >
-              &larr; Return to Public Website
+              &larr; Return to Website
             </Button>
+
+            {!isSupabaseConfigured && (
+              <Button
+                variant="text"
+                size="small"
+                onClick={() => setShowConfig(!showConfig)}
+                sx={{ textTransform: 'none', color: '#c97223', fontWeight: 700 }}
+              >
+                {showConfig ? 'Hide Config' : 'Setup Supabase'}
+              </Button>
+            )}
           </Box>
         </CardContent>
       </Card>
     </Box>
   );
 }
+

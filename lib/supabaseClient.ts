@@ -1,5 +1,4 @@
 import { createBrowserClient } from '@supabase/ssr';
-import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 const supabaseAnonKey =
@@ -14,12 +13,11 @@ export const isSupabaseConfigured = Boolean(
   !supabaseAnonKey.includes('your-anon-key')
 );
 
-// Browser client for client-side Auth
-export const createClientSupabase = () => {
-  if (!isSupabaseConfigured) return null;
-  return createBrowserClient(supabaseUrl, supabaseAnonKey);
-};
-
+// Always use createBrowserClient so auth cookies (sb-*-auth-token) are automatically written
+// to document.cookie and sent in HTTP request headers for Next.js middleware!
 export const supabase = isSupabaseConfigured
-  ? createClient(supabaseUrl, supabaseAnonKey)
+  ? createBrowserClient(supabaseUrl, supabaseAnonKey)
   : null;
+
+export const createClientSupabase = () => supabase;
+

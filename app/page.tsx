@@ -48,7 +48,7 @@ export default function HomePage() {
         {/* SECTION 3 (03): OUR SERVICES & SOLUTIONS */}
         {/* ========================================================= */}
         <section id="services" style={{ position: 'relative', width: '100%' }}>
-          <SectionHero data={sections.section3} badgeNumber="03">
+          <SectionHero data={sections.section3} badgeNumber="03" hideHeader>
             <ServicesGrid services={data.services} whyChoose={data.whyChoose} />
             <DynamicSectionRenderer sections={data.customSections} />
           </SectionHero>

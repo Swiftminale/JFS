@@ -24,15 +24,13 @@ export default function Footer({ location }: FooterProps) {
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
           <div style={{
-            backgroundColor: '#ffffff',
-            padding: '3px 6px',
-            borderRadius: '4px',
+            backgroundColor: 'transparent',
             display: 'inline-flex',
             alignItems: 'center'
           }}>
-            <img src="/logo.png" alt="JFS Logo" style={{ height: '22px', width: 'auto' }} />
+            <img src="/logo.png" alt="JFS Logo" style={{ height: '24px', width: 'auto' }} />
           </div>
-          <span>© JFS Trading · {location}</span>
+          <span>© JFS Trading · {location || 'Addis Ababa, Ethiopia'}</span>
         </div>
         <ul style={{ display: 'flex', gap: '1.75rem', listStyle: 'none' }}>
           <li><a href="#" style={{ color: 'inherit' }}>Legal notice</a></li>

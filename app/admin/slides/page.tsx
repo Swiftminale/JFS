@@ -170,7 +170,7 @@ export default function ScrollSectionsManagerPage() {
                     <Grid item xs={12} sm={4}>
                       <TextField
                         fullWidth
-                        label="Category Tag (e.g. AFRICAN PROVERB, WHO WE ARE)"
+                        label="Category Tag (e.g. WHO WE ARE, ABOUT US)"
                         value={item.tag || ''}
                         onChange={(e) => handleUpdateSection(key, 'tag', e.target.value)}
                       />

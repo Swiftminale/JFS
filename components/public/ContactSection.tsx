@@ -15,6 +15,11 @@ export default function ContactSection({ site }: ContactProps) {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '', privacy: false });
 
+  const phone = site?.phone || '+251 91 140 0328';
+  const email = site?.email || 'contact@jfs-tradinget.com';
+  const address = site?.address || 'Figa, Mesi Building, Addis Ababa';
+  const hours = site?.hours || 'Monday to Friday, 9:00 AM to 5:00 PM';
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message || !formData.privacy) {
@@ -34,35 +39,18 @@ export default function ContactSection({ site }: ContactProps) {
       maxWidth: '960px',
       margin: '0 auto',
       display: 'grid',
-      gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-      gap: '1.75rem',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+      gap: '1.25rem',
       textAlign: 'left',
       alignItems: 'stretch',
     }}>
       {/* Left Card: Direct Contact Details */}
-      <article style={{
-        backgroundColor: 'rgba(14, 24, 19, 0.75)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderRadius: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.14)',
-        borderTop: '4px solid #a3e635',
-        padding: '2rem 1.75rem',
-        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
+      <article className="glass-card glass-card-green" style={{
         color: '#ffffff',
         display: 'flex',
         flexDirection: 'column',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
       }}>
-        <span style={{
-          fontSize: '0.75rem',
-          fontWeight: 800,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: '#a3e635',
-          display: 'block',
-          marginBottom: '0.65rem',
-        }}>
+        <span className="glass-tag glass-tag-green">
           DIRECT CONTACT
         </span>
 
@@ -90,8 +78,8 @@ export default function ContactSection({ site }: ContactProps) {
             <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#a3e635', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '0.2rem' }}>
               Phone
             </span>
-            <a href={`tel:${site.phone.replace(/[^0-9+]/g, '')}`} style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}>
-              {site.phone}
+            <a href={`tel:${phone.replace(/[^0-9+]/g, '')}`} style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}>
+              {phone}
             </a>
           </div>
 
@@ -99,8 +87,8 @@ export default function ContactSection({ site }: ContactProps) {
             <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#a3e635', textTransform: 'uppercase', letterSpacing: '0.08em', display: 'block', marginBottom: '0.2rem' }}>
               Email
             </span>
-            <a href={`mailto:${site.email}`} style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}>
-              {site.email}
+            <a href={`mailto:${email}`} style={{ fontSize: '0.95rem', fontWeight: 700, color: '#ffffff', textDecoration: 'none' }}>
+              {email}
             </a>
           </div>
 
@@ -109,7 +97,7 @@ export default function ContactSection({ site }: ContactProps) {
               Address
             </span>
             <span style={{ fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.82)', lineHeight: 1.4, display: 'block' }}>
-              {site.address}
+              {address}
             </span>
           </div>
 
@@ -118,34 +106,17 @@ export default function ContactSection({ site }: ContactProps) {
               Hours
             </span>
             <span style={{ fontSize: '0.9rem', color: 'rgba(255, 255, 255, 0.82)', lineHeight: 1.4, display: 'block' }}>
-              {site.hours}
+              {hours}
             </span>
           </div>
         </div>
       </article>
 
       {/* Right Card: Contact Message Form */}
-      <article style={{
-        backgroundColor: 'rgba(14, 24, 19, 0.75)',
-        backdropFilter: 'blur(16px)',
-        WebkitBackdropFilter: 'blur(16px)',
-        borderRadius: '8px',
-        border: '1px solid rgba(255, 255, 255, 0.14)',
-        borderTop: '4px solid #c94a38',
-        padding: '2rem 1.75rem',
-        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
+      <article className="glass-card glass-card-red" style={{
         color: '#ffffff',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
       }}>
-        <span style={{
-          fontSize: '0.75rem',
-          fontWeight: 800,
-          letterSpacing: '0.12em',
-          textTransform: 'uppercase',
-          color: '#c94a38',
-          display: 'block',
-          marginBottom: '0.65rem',
-        }}>
+        <span className="glass-tag glass-tag-red">
           SEND INQUIRY
         </span>
 
@@ -184,16 +155,7 @@ export default function ContactSection({ site }: ContactProps) {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                style={{
-                  width: '100%',
-                  padding: '0.75rem 0.9rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '4px',
-                  fontSize: '0.9rem',
-                  color: '#ffffff',
-                  boxSizing: 'border-box',
-                }}
+                className="glass-input"
                 placeholder="Your full name"
               />
             </div>
@@ -207,16 +169,7 @@ export default function ContactSection({ site }: ContactProps) {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                style={{
-                  width: '100%',
-                  padding: '0.75rem 0.9rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '4px',
-                  fontSize: '0.9rem',
-                  color: '#ffffff',
-                  boxSizing: 'border-box',
-                }}
+                className="glass-input"
                 placeholder="your.email@domain.com"
               />
             </div>
@@ -230,17 +183,7 @@ export default function ContactSection({ site }: ContactProps) {
                 rows={3}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                style={{
-                  width: '100%',
-                  padding: '0.75rem 0.9rem',
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)',
-                  borderRadius: '4px',
-                  fontSize: '0.9rem',
-                  fontFamily: 'inherit',
-                  color: '#ffffff',
-                  boxSizing: 'border-box',
-                }}
+                className="glass-input"
                 placeholder="How can we help your farm?"
               />
             </div>
@@ -261,20 +204,7 @@ export default function ContactSection({ site }: ContactProps) {
 
             <button
               type="submit"
-              style={{
-                width: '100%',
-                padding: '0.85rem',
-                backgroundColor: '#c94a38',
-                color: '#ffffff',
-                fontWeight: 700,
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '0.9rem',
-                letterSpacing: '0.04em',
-                boxShadow: '0 4px 14px rgba(201, 74, 56, 0.35)',
-                transition: 'opacity 0.2s',
-              }}
+              className="glass-btn-submit"
             >
               Send message
             </button>

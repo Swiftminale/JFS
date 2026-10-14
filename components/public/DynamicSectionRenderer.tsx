@@ -20,17 +20,9 @@ export default function DynamicSectionRenderer({ sections }: DynamicSectionProps
   return (
     <>
       {sections.filter(s => s.enabled).map((sec) => (
-        <article key={sec.id} style={{
+        <article key={sec.id} className="glass-card glass-card-red" style={{
           width: '100%',
           marginTop: '1.5rem',
-          backgroundColor: 'rgba(14, 24, 19, 0.75)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          borderRadius: '8px',
-          border: '1px solid rgba(255, 255, 255, 0.14)',
-          borderTop: '4px solid #c94a38',
-          padding: '2rem 1.75rem',
-          boxShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -40,15 +32,7 @@ export default function DynamicSectionRenderer({ sections }: DynamicSectionProps
           color: '#ffffff',
         }}>
           <div style={{ maxWidth: '720px' }}>
-            <span style={{
-              fontSize: '0.75rem',
-              fontWeight: 800,
-              letterSpacing: '0.12em',
-              textTransform: 'uppercase',
-              color: '#a3e635',
-              display: 'block',
-              marginBottom: '0.5rem',
-            }}>
+            <span className="glass-tag glass-tag-green">
               ANNOUNCEMENT / CUSTOM UPDATE
             </span>
             <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', marginBottom: '0.6rem', lineHeight: 1.25 }}>

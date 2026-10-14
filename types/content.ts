@@ -9,6 +9,14 @@ export interface ScrollSectionItem {
   imageUrl: string;
 }
 
+export interface CoffeeGalleryItem {
+  id: string;
+  title: string;
+  category?: string;
+  imageUrl: string;
+  caption?: string;
+}
+
 export interface SiteContent {
   site: {
     name: string;
@@ -18,6 +26,13 @@ export interface SiteContent {
     email: string;
     address: string;
     hours: string;
+  };
+  hero?: {
+    eyebrow: string;
+    headline: string;
+    lead: string;
+    imageUrl: string;
+    badgeText?: string;
   };
   scrollSections: {
     section1: ScrollSectionItem;
@@ -59,6 +74,7 @@ export interface SiteContent {
       text: string;
     };
     pillars: Array<{ id: string; title: string; description: string }>;
+    gallery?: Array<CoffeeGalleryItem>;
     callout: {
       title: string;
       subtitle: string;
